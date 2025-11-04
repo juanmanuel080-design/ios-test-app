@@ -1,53 +1,53 @@
 # Project: GymStreak
 
 ## Goal
-A small iOS app to track how often I go to the gym. One-tap logging, visible streak, milestone celebrations.
+A small iOS app to track how often I go to the gym.  
+Users can log each gym visit with one tap, view their total workout count, and celebrate milestones.  
+Future versions may add consecutive streaks, reminders, and analytics.
 
 ## Platform
-- iOS
-- SwiftUI (preferred, no UIKit unless needed)
-- Min iOS = 17
+- iOS (minimum version: 17)
+- SwiftUI (preferred, no UIKit unless required)
 - Xcode on macOS
 
 ## Tone / UX
-- Follow Apple Human Interface Guidelines (clear hierarchy, generous spacing, SF Symbols, large tap areas)
-- Single primary action per screen
+- Follow Apple Human Interface Guidelines (HIG)
+- Clear visual hierarchy, generous spacing (16–24 pt paddings)
+- Use SF Symbols and system colors for a native look
+- Large, accessible primary buttons
 - Light mode first
-- Make it look like a native iOS app, follow Apple HIG, use SF Symbols, paddings 16–24, and large tappable buttons.
 
 ## Architecture
-- SwiftUI views
-- MVVM-ish (View + ViewModel + small service)
+- SwiftUI + MVVM (View + ViewModel + optional Service layer)
 - Local persistence first (AppStorage / UserDefaults)
-- NO Core Data yet
+- No Core Data yet
+- Future: optional iCloud or Core Data sync
 
 ## Metrics & Rules
-- We track **Total Workouts** (cumulative). It **never resets** if days are missed.
-- Allow **one log per calendar day**. If today is already logged, the primary button is disabled.
-- Store:
-  - `streakCount` (Int) → actually **total workouts**
-  - `lastVisitDate` (Double: seconds since 1970)
-- Milestones fire on **totals**: 5, 20, 50, 100.
-- Future (not now): optional “Consecutive Streak” separate from totals.
+- Track **Total Workouts** (cumulative) — never resets if days are missed.
+- Allow **only one log per calendar day**; disable the button after logging.
+- Store locally using `@AppStorage`:
+  - `streakCount` → represents total workouts
+  - `lastVisitDate` → Double (seconds since 1970)
+- Milestones trigger celebration messages at totals **5, 20, 50, 100**
+- Future: optional **Consecutive Streak** metric in addition to total count.
+
+## Milestone Messages
+| Total | Message |
+|-------|----------|
+| 5 | “Nice start!” |
+| 20 | “You’re consistent.” |
+| 50 | “Halfway there!” |
+| 100 | “Beast mode.” |
 
 ## Coding style
 - Use structs for views
 - Use private helpers
 - Avoid force unwraps
-- Add comments to public methods
+- Add brief comments for public methods and logic sections
 
-## Naming
-- Views: `SomethingView.swift`
-- ViewModels: `SomethingViewModel.swift`
-- Services: `SomethingService.swift`
-- No random filenames like `Test.swift` or `Playground.swift`
-
-## Data
-- Store streak counts in AppStorage for now.
-- Later we might move to Core Data or iCloud, but not in v1.
-
-## Milestones
-- 5 visits → “Nice start!”
-- 20 visits → “You’re consistent.”
-- 100 visits → “Beast mode.”
-
+## Naming conventions
+- Views → `SomethingView.swift`
+- ViewModels → `SomethingViewModel.swift`
+- Services → `SomethingService.swift`
+- Avoid placeholder filenames like `Test.swift` or `Playground.swift`
