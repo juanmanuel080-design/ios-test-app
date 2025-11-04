@@ -31,6 +31,11 @@ Future versions may add consecutive streaks, reminders, and analytics.
   - `lastVisitDate` → Double (seconds since 1970)
 - Milestones trigger celebration messages at totals **5, 20, 50, 100**
 - Future: optional **Consecutive Streak** metric in addition to total count.
+- Persist **visit dates** as unique calendar days in `@AppStorage("visitsJSON")` as a JSON array of ISO date strings (yyyy-MM-dd).
+- `totalWorkouts` = number of unique visit dates.
+- `visitsThisMonth` = count of visit dates within the current calendar month.
+- Grid shows up to 25 dots filled for **this month’s visits**.
+
 
 ## Milestone Messages
 | Total | Message |
